@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { Injectable, Injector, ModuleWithProviders, NgModule } from '@angular/core';
+import { Injector, ModuleWithProviders, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { HttpClient } from './client';
@@ -16,7 +16,7 @@ import { HttpEvent } from './_Response/response';
 import { HTTP_INTERCEPTORS, HttpInterceptorHandler, HttpInterceptor, NoopInterceptor } from './HttpModule/interceptor';
 import { HttpXsrfInterceptor } from './HttpXSRFModule/xsrf';
 import { HttpXsrfTokenExtractor, HttpXsrfCookieExtractor, XSRF_COOKIE_NAME, XSRF_HEADER_NAME } from './HttpXSRFModule/getToken';
-import { HttpXhrBackend, BrowserXhr, XhrFactory } from './HttpModule/xhr';
+import { HttpXhrBackend, BrowserXhr } from './HttpModule/xhr';
 
 /**
  * An injectable `HttpHandler` that applies multiple interceptors
@@ -27,7 +27,7 @@ import { HttpXhrBackend, BrowserXhr, XhrFactory } from './HttpModule/xhr';
  * on `HttpInterceptingHandler` itself.
  * @see `HttpInterceptor`
  */
-@Injectable()
+// @Injectable()
 export class HttpInterceptingHandler implements HttpHandler {
   private chain: HttpHandler | null = null;
 
@@ -160,9 +160,7 @@ export class HttpClientXsrfModule {
     HttpClient,
     { provide: HttpHandler, useClass: HttpInterceptingHandler },
     HttpXhrBackend,
-    { provide: HttpBackend, useExisting: HttpXhrBackend },
     BrowserXhr,
-    { provide: XhrFactory, useExisting: BrowserXhr },
   ],
 })
 export class HttpClientModule {

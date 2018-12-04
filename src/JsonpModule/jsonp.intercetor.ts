@@ -1,8 +1,5 @@
 import { JsonpClientBackend } from "./jsonp";
-import { HttpRequest } from "../request";
-import { HttpHandler } from "../backend";
 import { Observable } from "rxjs";
-import { HttpEvent } from "../response";
 
 /**
  * An `HttpInterceptor` which identifies requests with the method JSONP and
