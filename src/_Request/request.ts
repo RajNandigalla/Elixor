@@ -1,5 +1,6 @@
 import { HttpHeaders } from './../headers';
 import { HttpParams } from './../params';
+import { mightHaveBody, isArrayBuffer, isBlob, isFormData } from './utils';
 
 interface HttpRequestInit {
   headers?: HttpHeaders;
