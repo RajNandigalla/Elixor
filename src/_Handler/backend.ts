@@ -7,8 +7,8 @@
  */
 
 import { Observable } from 'rxjs';
-import { HttpRequest } from './request';
-import { HttpEvent } from './response';
+import { HttpEvent } from '../_Response/response';
+import { HttpRequest } from '../_Request/request';
 
 /**s
  * Transforms an `HttpRequest` into a stream of `HttpEvent`s, one of which will likely be a
