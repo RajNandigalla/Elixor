@@ -18,18 +18,20 @@ import { Injector } from '../utils/injector';
 export class HttpInterceptingHandler implements HttpHandler {
   private chain: HttpHandler | null = null;
   private backend: HttpBackend;
-  // private injector: Injector;
+  private injector: any = [];
+
   constructor(
     backend: HttpBackend,
     injector: Injector
   ) {
     this.backend = backend;
-    // this.injector = injector;
-    }
+    this.injector = injector;
+    console.log('times');
+  }
 
   handle(req: HttpRequest<any>): Observable<HttpEvent<any>> {
     if (this.chain === null) {
-      const interceptors = [];//this.injector.get(HTTP_INTERCEPTORS, []);
+      const interceptors = this.injector;//this.injector.get(HTTP_INTERCEPTORS, []);
       this.chain = interceptors.reduceRight((next, interceptor) => new HttpInterceptorHandler(next, interceptor), this.backend);
     }
     return this.chain.handle(req);

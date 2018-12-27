@@ -17,7 +17,7 @@ export { HttpHeaders } from './src/headers';
 export { HttpInterceptor } from './src/interceptor/interceptor';
 export { JsonpClientBackend, JsonpInterceptor } from './src/jsonp';
 export { HttpClientJsonpModule } from './src/module/HttpClientJsonpModule';
-export { HttpClientModule } from './src/module/HttpClientModule';
+export { HttpClientModule, elixir } from './src/module/HttpClientModule';
 export { HttpClientXsrfModule } from './src/module/HttpClientXsrfModule';
 export { HttpParameterCodec, HttpParams, HttpUrlEncodingCodec } from './src/params';
 export { HttpRequest } from './src/request';

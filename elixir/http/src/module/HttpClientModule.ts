@@ -2,6 +2,7 @@ import { HttpClient } from '../client';
 import { BrowserXhr, HttpXhrBackend } from '../xhr';
 import { HttpInterceptingHandler } from "../interceptor/HttpInterceptingHandler";
 import { Injector } from '../utils/injector';
+import { localInterceptor, localInterceptor1 } from 'src/localInterceptor';
 
 /**
  * Configures the [dependency injector](guide/glossary#injector) for `HttpClient`
@@ -14,7 +15,7 @@ import { Injector } from '../utils/injector';
  */
 export class HttpClientModule {
 
-    public init = () => {
+    public init = (intercetors: any) => {
         // imports: [
         //     HttpClientXsrfModule.withOptions({
         //         cookieName: 'XSRF-TOKEN',
@@ -27,7 +28,7 @@ export class HttpClientModule {
          */
 
 
-        new HttpClient(new HttpInterceptingHandler(new HttpXhrBackend(new BrowserXhr().build()), new Injector()));
+        new HttpClient(new HttpInterceptingHandler(new HttpXhrBackend(new BrowserXhr().build()), intercetors));
 
         // providers: [
         //     HttpClient,
@@ -40,4 +41,7 @@ export class HttpClientModule {
     }
 }
 
-export const elixir = new HttpClient(new HttpInterceptingHandler(new HttpXhrBackend(new BrowserXhr().build()), new Injector()));
+export const elixir = new HttpClient(new HttpInterceptingHandler(new HttpXhrBackend(new BrowserXhr()), [
+    new localInterceptor(),
+    new localInterceptor1()
+  ]));
