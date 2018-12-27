@@ -1,5 +1,5 @@
-import { HttpHeaders } from './../headers';
-import { HttpParams } from './../params';
+import { HttpHeaders } from '../../elixir/httpModule/headers';
+import { HttpParams } from '../../elixir/httpModule/params';
 import { mightHaveBody, isArrayBuffer, isBlob, isFormData } from './utils';
 
 interface HttpRequestInit {
@@ -153,47 +153,7 @@ export class HttpRequest<T> {
     return (this.body as any).toString();
   }
 
-  /**
-   * Examine the body and attempt to infer an appropriate MIME type
-   * for it.
-   *
-   * If no such type can be inferred, this method will return `null`.
-   */
-  detectContentTypeHeader(): string | null {
-    // An empty body has no content type.
-    if (this.body === null) {
-      return null;
-    }
-    // FormData bodies rely on the browser's content type assignment.
-    if (isFormData(this.body)) {
-      return null;
-    }
-    // Blobs usually have their own content type. If it doesn't, then
-    // no type can be inferred.
-    if (isBlob(this.body)) {
-      return this.body.type || null;
-    }
-    // Array buffers have unknown contents and thus no type can be inferred.
-    if (isArrayBuffer(this.body)) {
-      return null;
-    }
-    // Technically, strings could be a form of JSON data, but it's safe enough
-    // to assume they're plain strings.
-    if (typeof this.body === 'string') {
-      return 'text/plain';
-    }
-    // `HttpUrlEncodedParams` has its own content-type.
-    if (this.body instanceof HttpParams) {
-      return 'application/x-www-form-urlencoded;charset=UTF-8';
-    }
-    // Arrays, objects, and numbers will be encoded as JSON.
-    if (typeof this.body === 'object' || typeof this.body === 'number' ||
-      Array.isArray(this.body)) {
-      return 'application/json';
-    }
-    // No type could be inferred.
-    return null;
-  }
+ 
 
   clone(): HttpRequest<T>;
   clone(update: {

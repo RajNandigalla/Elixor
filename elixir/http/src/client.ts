@@ -9,12 +9,11 @@
 import {Observable, of } from 'rxjs';
 import {concatMap, filter, map} from 'rxjs/operators';
 
+import {HttpHandler} from './backend';
 import {HttpHeaders} from './headers';
 import {HttpParams, HttpParamsOptions} from './params';
-import { HttpHandler } from './_Handler/backend';
-import { HttpRequest } from './_Request/request';
-import { HttpEvent } from './_Response/response';
-import { HttpResponse } from './_Response/HttpResponse';
+import {HttpRequest} from './request';
+import {HttpEvent, HttpResponse} from './response';
 
 
 /**
