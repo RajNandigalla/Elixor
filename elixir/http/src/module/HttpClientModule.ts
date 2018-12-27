@@ -1,6 +1,5 @@
 import { HttpClient } from '../client';
-import { BrowserXhr, HttpXhrBackend, XhrFactory } from '../xhr';
-import { HttpClientXsrfModule } from './HttpClientXsrfModule';
+import { BrowserXhr, HttpXhrBackend } from '../xhr';
 import { HttpInterceptingHandler } from "../interceptor/HttpInterceptingHandler";
 import { Injector } from '../utils/injector';
 
@@ -27,8 +26,7 @@ export class HttpClientModule {
          * with supporting services for HTTP communications.
          */
 
-        new BrowserXhr().build();
-        new HttpXhrBackend(new BrowserXhr().build());
+
         new HttpClient(new HttpInterceptingHandler(new HttpXhrBackend(new BrowserXhr().build()), new Injector()));
 
         // providers: [
@@ -41,3 +39,5 @@ export class HttpClientModule {
         // ];
     }
 }
+
+export const elixir = new HttpClient(new HttpInterceptingHandler(new HttpXhrBackend(new BrowserXhr().build()), new Injector()));

@@ -2,8 +2,7 @@ import { Observable } from 'rxjs';
 import { HttpHandler, HttpBackend } from '../backend';
 import { HttpRequest } from '../request';
 import { HttpEvent } from '../response';
-import { HttpInterceptorHandler, HttpInterceptor } from './interceptor';
-import { HTTP_INTERCEPTORS } from '../utils/tokens';
+import { HttpInterceptorHandler } from './interceptor';
 import { Injector } from '../utils/injector';
 
 /**
@@ -19,15 +18,14 @@ import { Injector } from '../utils/injector';
 export class HttpInterceptingHandler implements HttpHandler {
   private chain: HttpHandler | null = null;
   private backend: HttpBackend;
-  private injector: Injector;
-
+  // private injector: Injector;
   constructor(
     backend: HttpBackend,
     injector: Injector
   ) {
     this.backend = backend;
-    this.injector = injector;
-  }
+    // this.injector = injector;
+    }
 
   handle(req: HttpRequest<any>): Observable<HttpEvent<any>> {
     if (this.chain === null) {
