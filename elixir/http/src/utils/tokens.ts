@@ -1,4 +1,3 @@
-import { HttpInterceptor } from "../interceptor/interceptor";
 
 export const XSRF_COOKIE_NAME = 'XSRF_COOKIE_NAME';
 export const XSRF_HEADER_NAME = 'XSRF_HEADER_NAME';
