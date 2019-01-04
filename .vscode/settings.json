@@ -1,9 +1,8 @@
 {
     "files.exclude": {
-        "node_modules": true,
-        "src": false,
-        "elixir": false,
+        "**/node_modules": true,
         "**/test": true,
         "**/testing": true,
+        "**/example": true,
     }
 }
