@@ -2,8 +2,7 @@ import { Observable } from 'rxjs';
 import { HttpHandler, HttpBackend } from '../backend';
 import { HttpRequest } from '../request';
 import { HttpEvent } from '../response';
-import { HttpInterceptorHandler } from './interceptor';
-import { Injector } from '../utils/injector';
+import { HttpInterceptorHandler, HttpInterceptor } from './interceptor';
 
 /**
  * An injectable `HttpHandler` that applies multiple interceptors
@@ -14,41 +13,23 @@ import { Injector } from '../utils/injector';
  * on `HttpInterceptingHandler` itself.
  * @see `HttpInterceptor`
  */
-// @Injectable()
 export class HttpInterceptingHandler implements HttpHandler {
   private chain: HttpHandler | null = null;
   private backend: HttpBackend;
-  private injector: any = [];
+  private interceptor: any;
 
   constructor(
     backend: HttpBackend,
-    injector: Injector
+    interceptor: HttpInterceptor[]
   ) {
     this.backend = backend;
-    this.injector = injector;
-    console.log('times');
+    this.interceptor = interceptor;
   }
 
   handle(req: HttpRequest<any>): Observable<HttpEvent<any>> {
     if (this.chain === null) {
-      const interceptors = this.injector;//this.injector.get(HTTP_INTERCEPTORS, []);
-      this.chain = interceptors.reduceRight((next, interceptor) => new HttpInterceptorHandler(next, interceptor), this.backend);
+      this.chain = this.interceptor.reduceRight((next, interceptor) => new HttpInterceptorHandler(next, interceptor), this.backend);
     }
     return this.chain.handle(req);
   }
 }
-
-/**
- * Constructs an `HttpHandler` that applies interceptors
- * to a request before passing it to the given `HttpBackend`.
- *
- * Use as a factory function within `HttpClientModule`.
- *
- *
- */
-// export function interceptingHandler(backend: HttpBackend, interceptors: HttpInterceptor[] | null = []): HttpHandler {
-//   if (!interceptors) {
-//     return backend;
-//   }
-//   return interceptors.reduceRight((next, interceptor) => new HttpInterceptorHandler(next, interceptor), backend);
-// }
