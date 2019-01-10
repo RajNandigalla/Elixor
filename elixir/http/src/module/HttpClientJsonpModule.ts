@@ -8,7 +8,6 @@ import { HTTP_INTERCEPTORS } from '../utils/tokens';
  * Ordinarily JSONP callbacks are stored on the `window` object, but this may not exist
  * in test environments. In that case, callbacks are stored on an anonymous object instead.
  *
- *
  */
 export function jsonpCallbackContext(): Object {
     if (typeof window === 'object') {
