@@ -3,15 +3,11 @@ import { HttpXsrfInterceptor } from "../interceptor/HttpXsrfInterceptor";
 import { Type } from '../utils/type';
 import { HTTP_INTERCEPTORS, XSRF_COOKIE_NAME, XSRF_HEADER_NAME } from '../utils/tokens';
 import { Provider } from '../utils/provider';
-import { HttpRequest, HttpHandler, HttpEvent } from 'src/http';
+import { HttpInterceptor } from '../interceptor/interceptor';
+import { HttpRequest } from '../request';
+import { HttpHandler } from '../backend';
 import { Observable } from 'rxjs';
-
-
-
-// @Injectable()
-export const intercept = (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> => {
-    return next.handle(req);
-}
+import { HttpEvent } from '../response';
 
 /**
  * Configures XSRF protection support for outgoing requests.
@@ -44,9 +40,9 @@ export class HttpClientXsrfModule {
     static disable(): ModuleWithProviders<HttpClientXsrfModule> {
         return {
             ngModule: HttpClientXsrfModule,
-            // providers: [
-            //     { provide: HttpXsrfInterceptor, useClass: NoopInterceptor },
-            // ],
+            providers: [
+                { provide: HttpXsrfInterceptor, useClass: NoopInterceptor },
+            ],
         };
     }
     /**
@@ -85,3 +81,11 @@ export interface ModuleWithProviders<
     ngModule: Type<T>;
     providers?: Provider[];
 }
+
+
+
+
+export const NoopInterceptor = (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> => {
+    return next.handle(req);
+}
+

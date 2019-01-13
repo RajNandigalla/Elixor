@@ -1,14 +1,14 @@
 import { Observable } from 'rxjs';
 import { HttpHandler } from '../backend';
+import { HttpInterceptor } from './interceptor';
 import { HttpRequest } from '../request';
 import { HttpEvent } from '../response';
 import { HttpXsrfTokenExtractor } from '../xsrf';
-
 /**
  * `HttpInterceptor` which adds an XSRF token to eligible outgoing requests.
  */
 // @Injectable()
-export class HttpXsrfInterceptor  { //implements HttpInterceptor
+export class HttpXsrfInterceptor implements HttpInterceptor {
   private tokenService: HttpXsrfTokenExtractor;
   private headerName: string;
   // @Inject(XSRF_HEADER_NAME) private headerName: string;
