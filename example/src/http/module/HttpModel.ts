@@ -94,6 +94,7 @@ export class HttpModel {
      * @param { HttpInterceptor } value
      */
     public set $HttpInterceptors(value: any) {
-        this.HttpInterceptors = value;
+        this.HttpInterceptors = [];
+        this.HttpInterceptors.push(...value);
     }
 }

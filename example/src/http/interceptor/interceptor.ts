@@ -48,7 +48,7 @@ export type HttpInterceptor = (req: HttpRequest<any>, next: HttpHandler) => Obse
 export class HttpInterceptorHandler implements HttpHandler {
   constructor(private next: HttpHandler, private interceptor: HttpInterceptor) { }
 
-  handle(req: HttpRequest<any>): Observable<HttpEvent<any>> {
+  public handle(req: HttpRequest<any>): Observable<HttpEvent<any>> {
     return this.interceptor(req, this.next);
   }
 }

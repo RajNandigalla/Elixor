@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { localInterceptor } from './localInterceptor';
+import { Elixir, ElixirHttpClientModule, elixirConfig } from './http/module/HttpClientModule';
+import { localInterceptor, localInterceptor1 } from './localInterceptor';
 
 class App extends React.Component {
 
@@ -8,7 +9,17 @@ class App extends React.Component {
   }
 
   public componentDidMount() {
-    //
+    new ElixirHttpClientModule().initialize({
+      interceptors: [
+        localInterceptor,
+        localInterceptor1
+      ]
+    });
+    console.log(elixirConfig.interceptors);
+    Elixir.get('https://jsonplaceholder.typicode.com/todos/1')
+      .subscribe(r => {
+        console.log(r);
+      })
   }
 
   public render() {

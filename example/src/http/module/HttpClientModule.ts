@@ -1,18 +1,26 @@
 import { HttpClient } from '../client';
-import { BrowserXhr, HttpXhrBackend } from '../xhr';
 import { HttpInterceptingHandler } from "../interceptor/HttpInterceptingHandler";
-import { HttpModel } from './HttpModel';
 import { HttpInterceptor } from '../interceptor/interceptor';
+import { BrowserXhr, HttpXhrBackend } from '../xhr';
+
 
 interface IElixirHttpClientModule {
-    baseURL: string;
-    interceptors: HttpInterceptor[];
-    XSRFCookieName: string;
-    XSRFHeaderName: string;
-    EnableXSRF: boolean;
+    baseURL?: string;
+    interceptors?: HttpInterceptor[] | undefined;
+    XSRFCookieName?: string;
+    XSRFHeaderName?: string;
+    EnableXSRF?: boolean;
 }
 
-/**
+export var elixirConfig: IElixirHttpClientModule = {
+    baseURL: '',
+    interceptors: [],
+    XSRFCookieName: '',
+    XSRFHeaderName: '',
+    EnableXSRF: false
+}
+
+/*
  * 
  *  imports: [
             HttpClientXsrfModule.withOptions({
@@ -33,17 +41,15 @@ interface IElixirHttpClientModule {
 export class ElixirHttpClientModule {
 
     public initialize = (initial: IElixirHttpClientModule) => {
-        const inst = HttpModel.x();
-
-        inst.$baseUrl(initial.baseURL);
-        inst.$XSRFCookieName(initial.XSRFCookieName);
-        inst.$XSRFHeaderName(initial.XSRFHeaderName);
-        inst.$enableXSRF(initial.EnableXSRF);
-        inst.$HttpInterceptors(initial.interceptors);
+        elixirConfig.baseURL = initial.baseURL;
+        elixirConfig.interceptors = initial.interceptors;
+        elixirConfig.XSRFCookieName = initial.XSRFCookieName;
+        elixirConfig.XSRFHeaderName = initial.XSRFHeaderName;
+        elixirConfig.EnableXSRF = initial.EnableXSRF;
     }
 }
 
 const browseXhr = new BrowserXhr();
 const httpXhrBackend = new HttpXhrBackend(browseXhr);
-const httpInterceptingHandler = new HttpInterceptingHandler(httpXhrBackend, HttpModel.x().$HttpInterceptors);
+const httpInterceptingHandler = new HttpInterceptingHandler(httpXhrBackend, elixirConfig.interceptors);
 export const Elixir = new HttpClient(httpInterceptingHandler);

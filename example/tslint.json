@@ -1,8 +1,8 @@
 {
   "extends": [
-    "tslint:recommended",
-    "tslint-react",
-    "tslint-config-prettier"
+    // "tslint:recommended",
+    // "tslint-react",
+    // "tslint-config-prettier"
   ],
   "rules": {
     "no-console": false

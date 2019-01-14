@@ -1,6 +1,8 @@
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators'
-import { HttpEvent, HttpHandler, HttpRequest, HttpResponse } from './http';
+import { HttpHandler } from './http/backend';
+import { HttpRequest } from './http/request';
+import { HttpEvent, HttpResponse } from './http/response';
 
 export const localInterceptor = (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> => {
     return next.handle(req)
