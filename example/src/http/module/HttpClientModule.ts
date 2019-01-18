@@ -44,9 +44,7 @@ export class ElixirHttpClientModule {
         elixirConfig.XSRFCookieName = initial.XSRFCookieName;
         elixirConfig.XSRFHeaderName = initial.XSRFHeaderName;
         elixirConfig.EnableXSRF = initial.EnableXSRF;
-
-        const int = initial.interceptors;
-        if (int && int.length > 0) elixirConfig.interceptors.push(...initial.interceptors);
+        elixirConfig.interceptors.push(...initial.interceptors);
     }
 }
 
