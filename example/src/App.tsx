@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Elixir, ElixirHttpClientModule, elixirConfig } from './http/module/HttpClientModule';
+import { Elixir, ElixirHttpClientModule, elixirConfig, testing } from './http/module/HttpClientModule';
 import { localInterceptor, localInterceptor1 } from './localInterceptor';
 
 class App extends React.Component {
@@ -9,6 +9,7 @@ class App extends React.Component {
   }
 
   public componentDidMount() {
+    console.warn(testing);
     new ElixirHttpClientModule().initialize({
       interceptors: [
         localInterceptor,
@@ -20,6 +21,7 @@ class App extends React.Component {
       .subscribe(r => {
         console.log(r);
       })
+    console.warn(testing);
   }
 
   public render() {
