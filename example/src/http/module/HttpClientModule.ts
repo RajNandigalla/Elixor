@@ -52,6 +52,3 @@ const browseXhr = new BrowserXhr();
 const httpXhrBackend = new HttpXhrBackend(browseXhr);
 const httpInterceptingHandler = new HttpInterceptingHandler(httpXhrBackend, elixirConfig.interceptors);
 export const Elixir = new HttpClient(httpInterceptingHandler);
-
-
-export var testing = elixirConfig.interceptors;
