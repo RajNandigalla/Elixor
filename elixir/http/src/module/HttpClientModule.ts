@@ -6,7 +6,7 @@ import { BrowserXhr, HttpXhrBackend } from '../xhr';
 
 interface IElixirHttpClientModule {
     baseURL?: string;
-    interceptors?: HttpInterceptor[] | undefined;
+    interceptors?: HttpInterceptor[];
     XSRFCookieName?: string;
     XSRFHeaderName?: string;
     EnableXSRF?: boolean;
@@ -42,10 +42,10 @@ export class ElixirHttpClientModule {
 
     public initialize = (initial: IElixirHttpClientModule) => {
         elixirConfig.baseURL = initial.baseURL;
-        elixirConfig.interceptors = initial.interceptors;
         elixirConfig.XSRFCookieName = initial.XSRFCookieName;
         elixirConfig.XSRFHeaderName = initial.XSRFHeaderName;
         elixirConfig.EnableXSRF = initial.EnableXSRF;
+        elixirConfig.interceptors.push(...initial.interceptors);
     }
 }
 

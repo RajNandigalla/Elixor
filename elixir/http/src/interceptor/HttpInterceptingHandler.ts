@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs';
-import { HttpHandler, HttpBackend } from '../backend';
+import { HttpBackend, HttpHandler } from '../backend';
 import { HttpRequest } from '../request';
 import { HttpEvent } from '../response';
-import { HttpInterceptorHandler, HttpInterceptor } from './interceptor';
+import { HttpInterceptor, HttpInterceptorHandler } from './interceptor';
+import { elixirConfig } from '../module/HttpClientModule';
 
 /**
  * An injectable `HttpHandler` that applies multiple interceptors
@@ -26,9 +27,9 @@ export class HttpInterceptingHandler implements HttpHandler {
     this.interceptor = interceptor;
   }
 
-  handle(req: HttpRequest<any>): Observable<HttpEvent<any>> {
+  public handle(req: HttpRequest<any>): Observable<HttpEvent<any>> {
     if (this.chain === null) {
-      this.chain = this.interceptor.reduceRight((next, interceptor) => new HttpInterceptorHandler(next, interceptor), this.backend);
+      this.chain = this.interceptor.reduceRight((next: HttpHandler, interceptor: HttpInterceptor) => new HttpInterceptorHandler(next, interceptor), this.backend);
     }
     return this.chain.handle(req);
   }
