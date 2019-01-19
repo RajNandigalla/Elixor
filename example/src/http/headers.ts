@@ -8,8 +8,8 @@
 
 interface Update {
   name: string;
-  value?: string|string[];
-  op: 'a'|'s'|'d';
+  value?: string | string[];
+  op: 'a' | 's' | 'd';
 }
 
 /**
@@ -40,9 +40,9 @@ export class HttpHeaders {
   /**
    * Queued updates to be materialized the next initialization.
    */
-  private lazyUpdate: Update[]|null = null;
+  private lazyUpdate: Update[] | null = null;
 
-  constructor(headers?: string|{[name: string]: string | string[]}) {
+  constructor(headers?: string | { [name: string]: string | string[] }) {
     if (!headers) {
       this.headers = new Map<string, string[]>();
     } else if (typeof headers === 'string') {
@@ -56,7 +56,7 @@ export class HttpHeaders {
             const value = line.slice(index + 1).trim();
             this.maybeSetNormalizedName(name, key);
             if (this.headers.has(key)) {
-              this.headers.get(key) !.push(value);
+              this.headers.get(key)!.push(value);
             } else {
               this.headers.set(key, [value]);
             }
@@ -67,7 +67,7 @@ export class HttpHeaders {
       this.lazyInit = () => {
         this.headers = new Map<string, string[]>();
         Object.keys(headers).forEach(name => {
-          let values: string|string[] = headers[name];
+          let values: string | string[] = headers[name];
           const key = name.toLowerCase();
           if (typeof values === 'string') {
             values = [values];
@@ -93,7 +93,7 @@ export class HttpHeaders {
   /**
    * Returns first header that matches given name.
    */
-  get(name: string): string|null {
+  get(name: string): string | null {
     this.init();
 
     const values = this.headers.get(name.toLowerCase());
@@ -112,22 +112,22 @@ export class HttpHeaders {
   /**
    * Returns list of header values for a given name.
    */
-  getAll(name: string): string[]|null {
+  getAll(name: string): string[] | null {
     this.init();
 
     return this.headers.get(name.toLowerCase()) || null;
   }
 
-  append(name: string, value: string|string[]): HttpHeaders {
-    return this.clone({name, value, op: 'a'});
+  append(name: string, value: string | string[]): HttpHeaders {
+    return this.clone({ name, value, op: 'a' });
   }
 
-  set(name: string, value: string|string[]): HttpHeaders {
-    return this.clone({name, value, op: 's'});
+  set(name: string, value: string | string[]): HttpHeaders {
+    return this.clone({ name, value, op: 's' });
   }
 
-  delete (name: string, value?: string|string[]): HttpHeaders {
-    return this.clone({name, value, op: 'd'});
+  delete(name: string, value?: string | string[]): HttpHeaders {
+    return this.clone({ name, value, op: 'd' });
   }
 
   private maybeSetNormalizedName(name: string, lcName: string): void {
@@ -154,15 +154,15 @@ export class HttpHeaders {
   private copyFrom(other: HttpHeaders) {
     other.init();
     Array.from(other.headers.keys()).forEach(key => {
-      this.headers.set(key, other.headers.get(key) !);
-      this.normalizedNames.set(key, other.normalizedNames.get(key) !);
+      this.headers.set(key, other.headers.get(key)!);
+      this.normalizedNames.set(key, other.normalizedNames.get(key)!);
     });
   }
 
   private clone(update: Update): HttpHeaders {
     const clone = new HttpHeaders();
     clone.lazyInit =
-        (!!this.lazyInit && this.lazyInit instanceof HttpHeaders) ? this.lazyInit : this;
+      (!!this.lazyInit && this.lazyInit instanceof HttpHeaders) ? this.lazyInit : this;
     clone.lazyUpdate = (this.lazyUpdate || []).concat([update]);
     return clone;
   }
@@ -172,7 +172,7 @@ export class HttpHeaders {
     switch (update.op) {
       case 'a':
       case 's':
-        let value = update.value !;
+        let value = update.value!;
         if (typeof value === 'string') {
           value = [value];
         }
@@ -212,6 +212,6 @@ export class HttpHeaders {
   forEach(fn: (name: string, values: string[]) => void) {
     this.init();
     Array.from(this.normalizedNames.keys())
-        .forEach(key => fn(this.normalizedNames.get(key) !, this.headers.get(key) !));
+      .forEach(key => fn(this.normalizedNames.get(key)!, this.headers.get(key)!));
   }
 }

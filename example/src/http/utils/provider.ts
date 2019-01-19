@@ -281,7 +281,7 @@ export interface FactoryProvider extends FactorySansProvider {
  * @publicApi
  */
 export type StaticProvider = ValueProvider | ExistingProvider | StaticClassProvider |
-    ConstructorProvider | FactoryProvider | any[];
+  ConstructorProvider | FactoryProvider | any[];
 
 
 /**
@@ -299,7 +299,7 @@ export type StaticProvider = ValueProvider | ExistingProvider | StaticClassProvi
  *
  * @publicApi
  */
-export interface TypeProvider extends Type<any> {}
+export interface TypeProvider extends Type<any> { }
 
 /**
  * Configures the `Injector` to return a value by invoking a `useClass` function.
@@ -365,4 +365,4 @@ export interface ClassProvider extends ClassSansProvider {
  * @publicApi
  */
 export type Provider = TypeProvider | ValueProvider | ClassProvider | ConstructorProvider |
-    ExistingProvider | FactoryProvider | any[];
+  ExistingProvider | FactoryProvider | any[];
