@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {HttpHeaders} from './headers';
-import {HttpParams} from './params';
+import { HttpHeaders } from './headers';
+import { HttpParams } from './params';
 
 /**
  * Construction interface for `HttpRequest`s.
@@ -18,7 +18,7 @@ interface HttpRequestInit {
   headers?: HttpHeaders;
   reportProgress?: boolean;
   params?: HttpParams;
-  responseType?: 'arraybuffer'|'blob'|'json'|'text';
+  responseType?: 'arraybuffer' | 'blob' | 'json' | 'text';
   withCredentials?: boolean;
 }
 
@@ -83,7 +83,7 @@ export class HttpRequest<T> {
    * user-defined data type. However, interceptors should take care to preserve
    * idempotence by treating them as such.
    */
-  readonly body: T|null = null;
+  readonly body: T | null = null;
 
   /**
    * Outgoing headers for this request.
@@ -110,7 +110,7 @@ export class HttpRequest<T> {
    * This is used to parse the response appropriately before returning it to
    * the requestee.
    */
-  readonly responseType: 'arraybuffer'|'blob'|'json'|'text' = 'json';
+  readonly responseType: 'arraybuffer' | 'blob' | 'json' | 'text' = 'json';
 
   /**
    * The outgoing HTTP request method.
@@ -128,46 +128,46 @@ export class HttpRequest<T> {
    */
   readonly urlWithParams: string;
 
-  constructor(method: 'DELETE'|'GET'|'HEAD'|'JSONP'|'OPTIONS', url: string, init?: {
+  constructor(method: 'DELETE' | 'GET' | 'HEAD' | 'JSONP' | 'OPTIONS', url: string, init?: {
     headers?: HttpHeaders,
     reportProgress?: boolean,
     params?: HttpParams,
-    responseType?: 'arraybuffer'|'blob'|'json'|'text',
+    responseType?: 'arraybuffer' | 'blob' | 'json' | 'text',
     withCredentials?: boolean,
   });
-  constructor(method: 'POST'|'PUT'|'PATCH', url: string, body: T|null, init?: {
+  constructor(method: 'POST' | 'PUT' | 'PATCH', url: string, body: T | null, init?: {
     headers?: HttpHeaders,
     reportProgress?: boolean,
     params?: HttpParams,
-    responseType?: 'arraybuffer'|'blob'|'json'|'text',
+    responseType?: 'arraybuffer' | 'blob' | 'json' | 'text',
     withCredentials?: boolean,
   });
-  constructor(method: string, url: string, body: T|null, init?: {
+  constructor(method: string, url: string, body: T | null, init?: {
     headers?: HttpHeaders,
     reportProgress?: boolean,
     params?: HttpParams,
-    responseType?: 'arraybuffer'|'blob'|'json'|'text',
+    responseType?: 'arraybuffer' | 'blob' | 'json' | 'text',
     withCredentials?: boolean,
   });
   constructor(
-      method: string, readonly url: string, third?: T|{
-        headers?: HttpHeaders,
-        reportProgress?: boolean,
-        params?: HttpParams,
-        responseType?: 'arraybuffer'|'blob'|'json'|'text',
-        withCredentials?: boolean,
-      }|null,
-      fourth?: {
-        headers?: HttpHeaders,
-        reportProgress?: boolean,
-        params?: HttpParams,
-        responseType?: 'arraybuffer'|'blob'|'json'|'text',
-        withCredentials?: boolean,
-      }) {
+    method: string, readonly url: string, third?: T | {
+      headers?: HttpHeaders,
+      reportProgress?: boolean,
+      params?: HttpParams,
+      responseType?: 'arraybuffer' | 'blob' | 'json' | 'text',
+      withCredentials?: boolean,
+    } | null,
+    fourth?: {
+      headers?: HttpHeaders,
+      reportProgress?: boolean,
+      params?: HttpParams,
+      responseType?: 'arraybuffer' | 'blob' | 'json' | 'text',
+      withCredentials?: boolean,
+    }) {
     this.method = method.toUpperCase();
     // Next, need to figure out which argument holds the HttpRequestInit
     // options, if any.
-    let options: HttpRequestInit|undefined;
+    let options: HttpRequestInit | undefined;
 
     // Check whether a body argument is expected. The only valid way to omit
     // the body argument is to use a known no-body method like GET.
@@ -236,7 +236,7 @@ export class HttpRequest<T> {
    * Transform the free-form body into a serialized format suitable for
    * transmission to the server.
    */
-  serializeBody(): ArrayBuffer|Blob|FormData|string|null {
+  serializeBody(): ArrayBuffer | Blob | FormData | string | null {
     // If no body is present, no need to serialize it.
     if (this.body === null) {
       return null;
@@ -244,7 +244,7 @@ export class HttpRequest<T> {
     // Check whether the body is already in a serialized form. If so,
     // it can just be returned directly.
     if (isArrayBuffer(this.body) || isBlob(this.body) || isFormData(this.body) ||
-        typeof this.body === 'string') {
+      typeof this.body === 'string') {
       return this.body;
     }
     // Check whether the body is an instance of HttpUrlEncodedParams.
@@ -253,7 +253,7 @@ export class HttpRequest<T> {
     }
     // Check whether the body is an object or array, and serialize with JSON if so.
     if (typeof this.body === 'object' || typeof this.body === 'boolean' ||
-        Array.isArray(this.body)) {
+      Array.isArray(this.body)) {
       return JSON.stringify(this.body);
     }
     // Fall back on toString() for everything else.
@@ -266,7 +266,7 @@ export class HttpRequest<T> {
    *
    * If no such type can be inferred, this method will return `null`.
    */
-  detectContentTypeHeader(): string|null {
+  detectContentTypeHeader(): string | null {
     // An empty body has no content type.
     if (this.body === null) {
       return null;
@@ -295,7 +295,7 @@ export class HttpRequest<T> {
     }
     // Arrays, objects, and numbers will be encoded as JSON.
     if (typeof this.body === 'object' || typeof this.body === 'number' ||
-        Array.isArray(this.body)) {
+      Array.isArray(this.body)) {
       return 'application/json';
     }
     // No type could be inferred.
@@ -307,37 +307,37 @@ export class HttpRequest<T> {
     headers?: HttpHeaders,
     reportProgress?: boolean,
     params?: HttpParams,
-    responseType?: 'arraybuffer'|'blob'|'json'|'text',
+    responseType?: 'arraybuffer' | 'blob' | 'json' | 'text',
     withCredentials?: boolean,
-    body?: T|null,
+    body?: T | null,
     method?: string,
     url?: string,
-    setHeaders?: {[name: string]: string | string[]},
-    setParams?: {[param: string]: string},
+    setHeaders?: { [name: string]: string | string[] },
+    setParams?: { [param: string]: string },
   }): HttpRequest<T>;
   clone<V>(update: {
     headers?: HttpHeaders,
     reportProgress?: boolean,
     params?: HttpParams,
-    responseType?: 'arraybuffer'|'blob'|'json'|'text',
+    responseType?: 'arraybuffer' | 'blob' | 'json' | 'text',
     withCredentials?: boolean,
-    body?: V|null,
+    body?: V | null,
     method?: string,
     url?: string,
-    setHeaders?: {[name: string]: string | string[]},
-    setParams?: {[param: string]: string},
+    setHeaders?: { [name: string]: string | string[] },
+    setParams?: { [param: string]: string },
   }): HttpRequest<V>;
   clone(update: {
     headers?: HttpHeaders,
     reportProgress?: boolean,
     params?: HttpParams,
-    responseType?: 'arraybuffer'|'blob'|'json'|'text',
+    responseType?: 'arraybuffer' | 'blob' | 'json' | 'text',
     withCredentials?: boolean,
-    body?: any|null,
+    body?: any | null,
     method?: string,
     url?: string,
-    setHeaders?: {[name: string]: string | string[]},
-    setParams?: {[param: string]: string};
+    setHeaders?: { [name: string]: string | string[] },
+    setParams?: { [param: string]: string };
   } = {}): HttpRequest<any> {
     // For method, url, and responseType, take the current value unless
     // it is overridden in the update hash.
@@ -354,9 +354,9 @@ export class HttpRequest<T> {
     // Carefully handle the boolean options to differentiate between
     // `false` and `undefined` in the update args.
     const withCredentials =
-        (update.withCredentials !== undefined) ? update.withCredentials : this.withCredentials;
+      (update.withCredentials !== undefined) ? update.withCredentials : this.withCredentials;
     const reportProgress =
-        (update.reportProgress !== undefined) ? update.reportProgress : this.reportProgress;
+      (update.reportProgress !== undefined) ? update.reportProgress : this.reportProgress;
 
     // Headers and params may be appended to if `setHeaders` or
     // `setParams` are used.
@@ -367,21 +367,21 @@ export class HttpRequest<T> {
     if (update.setHeaders !== undefined) {
       // Set every requested header.
       headers =
-          Object.keys(update.setHeaders)
-              .reduce((headers, name) => headers.set(name, update.setHeaders ![name]), headers);
+        Object.keys(update.setHeaders)
+          .reduce((headers, name) => headers.set(name, update.setHeaders![name]), headers);
     }
 
     // Check whether the caller has asked to set params.
     if (update.setParams) {
       // Set every requested param.
       params = Object.keys(update.setParams)
-                   .reduce((params, param) => params.set(param, update.setParams ![param]), params);
+        .reduce((params, param) => params.set(param, update.setParams![param]), params);
     }
 
     // Finally, construct the new HttpRequest using the pieces from above.
     return new HttpRequest(
-        method, url, body, {
-                               params, headers, reportProgress, responseType, withCredentials,
-                           });
+      method, url, body, {
+        params, headers, reportProgress, responseType, withCredentials,
+      });
   }
 }

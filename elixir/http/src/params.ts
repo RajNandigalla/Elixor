@@ -45,8 +45,8 @@ function paramParser(rawParams: string, codec: HttpParameterCodec): Map<string, 
     params.forEach((param: string) => {
       const eqIdx = param.indexOf('=');
       const [key, val]: string[] = eqIdx == -1 ?
-          [codec.decodeKey(param), ''] :
-          [codec.decodeKey(param.slice(0, eqIdx)), codec.decodeValue(param.slice(eqIdx + 1))];
+        [codec.decodeKey(param), ''] :
+        [codec.decodeKey(param.slice(0, eqIdx)), codec.decodeValue(param.slice(eqIdx + 1))];
       const list = map.get(key) || [];
       list.push(val);
       map.set(key, list);
@@ -56,21 +56,21 @@ function paramParser(rawParams: string, codec: HttpParameterCodec): Map<string, 
 }
 function standardEncoding(v: string): string {
   return encodeURIComponent(v)
-      .replace(/%40/gi, '@')
-      .replace(/%3A/gi, ':')
-      .replace(/%24/gi, '$')
-      .replace(/%2C/gi, ',')
-      .replace(/%3B/gi, ';')
-      .replace(/%2B/gi, '+')
-      .replace(/%3D/gi, '=')
-      .replace(/%3F/gi, '?')
-      .replace(/%2F/gi, '/');
+    .replace(/%40/gi, '@')
+    .replace(/%3A/gi, ':')
+    .replace(/%24/gi, '$')
+    .replace(/%2C/gi, ',')
+    .replace(/%3B/gi, ';')
+    .replace(/%2B/gi, '+')
+    .replace(/%3D/gi, '=')
+    .replace(/%3F/gi, '?')
+    .replace(/%2F/gi, '/');
 }
 
 interface Update {
   param: string;
   value?: string;
-  op: 'a'|'d'|'s';
+  op: 'a' | 'd' | 's';
 }
 
 /** Options used to construct an `HttpParams` instance. */
@@ -82,7 +82,7 @@ export interface HttpParamsOptions {
   fromString?: string;
 
   /** Object map of the HTTP params. Mutally exclusive with `fromString`. */
-  fromObject?: {[param: string]: string | string[]};
+  fromObject?: { [param: string]: string | string[] };
 
   /** Encoding codec used to parse and serialize the params. */
   encoder?: HttpParameterCodec;
@@ -97,10 +97,10 @@ export interface HttpParamsOptions {
  * @publicApi
  */
 export class HttpParams {
-  private map: Map<string, string[]>|null;
+  private map: Map<string, string[]> | null;
   private encoder: HttpParameterCodec;
-  private updates: Update[]|null = null;
-  private cloneFrom: HttpParams|null = null;
+  private updates: Update[] | null = null;
+  private cloneFrom: HttpParams | null = null;
 
   constructor(options: HttpParamsOptions = {} as HttpParamsOptions) {
     this.encoder = options.encoder || new HttpUrlEncodingCodec();
@@ -113,7 +113,7 @@ export class HttpParams {
       this.map = new Map<string, string[]>();
       Object.keys(options.fromObject).forEach(key => {
         const value = (options.fromObject as any)[key];
-        this.map !.set(key, Array.isArray(value) ? value : [value]);
+        this.map!.set(key, Array.isArray(value) ? value : [value]);
       });
     } else {
       this.map = null;
@@ -125,24 +125,24 @@ export class HttpParams {
    */
   has(param: string): boolean {
     this.init();
-    return this.map !.has(param);
+    return this.map!.has(param);
   }
 
   /**
    * Get the first value for the given parameter name, or `null` if it's not present.
    */
-  get(param: string): string|null {
+  get(param: string): string | null {
     this.init();
-    const res = this.map !.get(param);
+    const res = this.map!.get(param);
     return !!res ? res[0] : null;
   }
 
   /**
    * Get all values for the given parameter name, or `null` if it's not present.
    */
-  getAll(param: string): string[]|null {
+  getAll(param: string): string[] | null {
     this.init();
-    return this.map !.get(param) || null;
+    return this.map!.get(param) || null;
   }
 
   /**
@@ -150,25 +150,25 @@ export class HttpParams {
    */
   keys(): string[] {
     this.init();
-    return Array.from(this.map !.keys());
+    return Array.from(this.map!.keys());
   }
 
   /**
    * Construct a new body with an appended value for the given parameter name.
    */
-  append(param: string, value: string): HttpParams { return this.clone({param, value, op: 'a'}); }
+  append(param: string, value: string): HttpParams { return this.clone({ param, value, op: 'a' }); }
 
   /**
    * Construct a new body with a new value for the given parameter name.
    */
-  set(param: string, value: string): HttpParams { return this.clone({param, value, op: 's'}); }
+  set(param: string, value: string): HttpParams { return this.clone({ param, value, op: 's' }); }
 
   /**
    * Construct a new body with either the given value for the given parameter
    * removed, if a value is given, or all values for the given parameter removed
    * if not.
    */
-  delete (param: string, value?: string): HttpParams { return this.clone({param, value, op: 'd'}); }
+  delete(param: string, value?: string): HttpParams { return this.clone({ param, value, op: 'd' }); }
 
   /**
    * Serialize the body to an encoded string, where key-value pairs (separated by `=`) are
@@ -177,12 +177,12 @@ export class HttpParams {
   toString(): string {
     this.init();
     return this.keys()
-        .map(key => {
-          const eKey = this.encoder.encodeKey(key);
-          return this.map !.get(key) !.map(value => eKey + '=' + this.encoder.encodeValue(value))
-              .join('&');
-        })
-        .join('&');
+      .map(key => {
+        const eKey = this.encoder.encodeKey(key);
+        return this.map!.get(key)!.map(value => eKey + '=' + this.encoder.encodeValue(value))
+          .join('&');
+      })
+      .join('&');
   }
 
   private clone(update: Update): HttpParams {
@@ -198,29 +198,29 @@ export class HttpParams {
     }
     if (this.cloneFrom !== null) {
       this.cloneFrom.init();
-      this.cloneFrom.keys().forEach(key => this.map !.set(key, this.cloneFrom !.map !.get(key) !));
-      this.updates !.forEach(update => {
+      this.cloneFrom.keys().forEach(key => this.map!.set(key, this.cloneFrom!.map!.get(key)!));
+      this.updates!.forEach(update => {
         switch (update.op) {
           case 'a':
           case 's':
-            const base = (update.op === 'a' ? this.map !.get(update.param) : undefined) || [];
-            base.push(update.value !);
-            this.map !.set(update.param, base);
+            const base = (update.op === 'a' ? this.map!.get(update.param) : undefined) || [];
+            base.push(update.value!);
+            this.map!.set(update.param, base);
             break;
           case 'd':
             if (update.value !== undefined) {
-              let base = this.map !.get(update.param) || [];
+              let base = this.map!.get(update.param) || [];
               const idx = base.indexOf(update.value);
               if (idx !== -1) {
                 base.splice(idx, 1);
               }
               if (base.length > 0) {
-                this.map !.set(update.param, base);
+                this.map!.set(update.param, base);
               } else {
-                this.map !.delete(update.param);
+                this.map!.delete(update.param);
               }
             } else {
-              this.map !.delete(update.param);
+              this.map!.delete(update.param);
               break;
             }
         }
