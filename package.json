@@ -1,19 +1,44 @@
 {
-  "name": "elixor",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "tslint": "^5.14.0",
-    "typescript": "^3.3.4000"
-  },
-  "dependencies": {
-    "rxjs": "^6.4.0"
-  }
+    "name": "elixor",
+    "version": "1.0.2",
+    "description": "Observable ( Reactive / Rxjs ) based HTTP client for the browser , reactJs , react native and node.js",
+    "main": "dist/index.js",
+    "module": "dist/index.es.js",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "test": "",
+        "build": "rollup -c"
+    },
+    "keywords": [
+        "React",
+        "ReactJS",
+        "React-native",
+        "Node.js",
+        "Observables",
+        "Http",
+        "rxjs",
+        "typescript"
+    ],
+    "author": "Raj Nandigalla",
+    "homepage": "https://elixor.gitbook.io/",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/RajNandigalla/Elixor"
+    },
+    "bugs": {
+        "url": "https://github.com/RajNandigalla/Elixor/issues"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "rollup": "^1.7.0",
+        "rollup-plugin-commonjs": "^9.2.1",
+        "rollup-plugin-node-resolve": "^4.0.1",
+        "rollup-plugin-typescript2": "^0.20.1",
+        "rollup-plugin-uglify": "^6.0.2",
+        "rxjs": "^6.4.0",
+        "tslint": "^5.14.0",
+        "typescript": "^3.3.4000"
+    }
 }

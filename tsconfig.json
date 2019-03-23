@@ -5,7 +5,7 @@
         "noImplicitAny": true,
         "outDir": "./dist",
         "module": "es6",
-        "target": "es6",
+        "target": "es5",
         "moduleResolution": "node",
         "declaration": true,
         "declarationDir": "./dist",

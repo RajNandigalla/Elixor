@@ -1,26 +1,75 @@
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
+const typescript = require('rollup-plugin-typescript2')
+const { uglify } = require('rollup-plugin-uglify')
+const nodeResolve = require('rollup-plugin-node-resolve')
+const commonjs = require('rollup-plugin-commonjs')
+import pkg from './package.json'
 
-const globals = {
-  '@angular/core': 'ng.core',
-  '@angular/platform-browser': 'ng.platformBrowser',
-  '@angular/common': 'ng.common',
-  'rxjs': 'rxjs',
-  'rxjs/operators': 'rxjs.operators',
-};
+const makeConfig = ({
+    packageName,
+    declaration = false,
+    umd = false,
+    compress = false,
+    file
+}) => {
+    const plugins = [
+        nodeResolve({ jsnext: true, module: true }),
+        commonjs({
+            include: `${packageName}/node_modules/**`
+        }),
+        typescript({
+            tsconfig: `${packageName}/tsconfig.json`,
+            useTsconfigDeclarationDir: true,
+            clean: true,
+            tsconfigOverride: { compilerOptions: { declaration } }
+        }),
+        compress && uglify()
+    ].filter(Boolean)
 
-module.exports = {
-  entry: '../../../dist/packages-dist/common/fesm5/http.js',
-  dest: '../../../dist/packages-dist/common/bundles/common-http.umd.js',
-  format: 'umd',
-  exports: 'named',
-  amd: {id: '@angular/common/http'},
-  moduleName: 'ng.common.http',
-  external: Object.keys(globals),
-  globals: globals
-};
+    return {
+        input: `src/packages/index.ts`,
+        external:
+            umd ? [] : Object.keys(
+                pkg.dependencies || {}
+            ).concat(
+                Object.keys(
+                    pkg.peerDependencies || {}
+                )
+            ),
+        output: umd ? {
+            file,
+            name: packageName,
+            format: 'umd'
+        } : [
+                {
+                    format: 'es',
+                    file: `dist/index.es.js`
+                },
+                {
+                    format: 'cjs',
+                    file: `dist/index.js`
+                }
+            ],
+        plugins
+    }
+}
+const makePackageConfig = packageName =>
+    makeConfig({
+        packageName,
+        declaration: true
+    })
+
+module.exports = [
+    makeConfig({
+        packageName: 'elixor',
+        file: 'dist/elixor.min.js',
+        umd: true,
+        compress: true
+    }),
+    makeConfig({
+        packageName: 'elixor',
+        file: 'dist/elixor.js',
+        umd: true,
+        format: 'umd'
+    }),
+    makePackageConfig('elixor')
+].filter(Boolean)
