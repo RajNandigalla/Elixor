@@ -24,9 +24,9 @@ export let elixorConfig: IelixorHttpClientModule = {
     XSRFHeaderName: XSRF_HEADER_NAME,
 };
 
-export class ElixorHttpClientModule {
+export class ElixorModule {
 
-    public initialize = (initial: IelixorHttpClientModule) => {
+    public static initialize = (initial: IelixorHttpClientModule) => {
         if (initial.baseURL !== null) { elixorConfig.baseURL = initial.baseURL; }
         if (initial.XSRFCookieName !== null) { elixorConfig.XSRFCookieName = initial.XSRFCookieName; }
         if (initial.XSRFCookieName !== null) { elixorConfig.XSRFHeaderName = initial.XSRFHeaderName; }
