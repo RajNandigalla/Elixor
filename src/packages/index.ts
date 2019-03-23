@@ -37,7 +37,7 @@ export class ElixirHttpClientModule {
             XSRFHeaderName: elixirConfig.XSRFHeaderName,
         };
 
-        new XSRFModule().initialize(xsrf);
+        XSRFModule.initialize(xsrf);
     }
 }
 
