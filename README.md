@@ -1,4 +1,4 @@
-# Elixir-Http
+# Elixor
 
 Observable based HTTP client for the React,Browser and Node.JS
 
@@ -14,20 +14,20 @@ Observable based HTTP client for the React,Browser and Node.JS
 
 Using npm:
 ```bash
-$ npm install elixir-http
+$ npm install elixor
 ```
 Using bower:
 ```bash
-$ bower install elixir-http
+$ bower install elixor
 ```
 ## Example
 
 Performing a GET Request
 ```bash
     
-import { Elixir } from 'elixir-http';
+import { elixor } from 'elixor';
 
- Elixir.get('https://jsonplaceholder.typicode.com/todos/1')
+ elixor.get('https://jsonplaceholder.typicode.com/todos/1')
             .subscribe(r => console.log(r));
      
 ```
@@ -36,13 +36,13 @@ Performing a POST Request
 
 ```bash
 
-import { Elixir } from 'elixir-http';
+import { elixor } from 'elixor';
 
  const opt = {
      name:'Hello World'
  };
 
- Elixir.post('https://jsonplaceholder.typicode.com/posts',opt)
+ elixor.post('https://jsonplaceholder.typicode.com/posts',opt)
             .subscribe(r => console.log(r));
 
 ```
