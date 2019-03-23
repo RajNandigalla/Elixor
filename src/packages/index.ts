@@ -5,6 +5,7 @@ import { HttpClient } from './core/client';
 import { HttpXsrfInterceptor } from './xsrf/HttpXsrfInterceptor';
 import { JsonpInterceptor } from './jsonp/JsonpInterceptor';
 import { XSRF_COOKIE_NAME, XSRF_HEADER_NAME } from './xsrf/utils';
+import { XSRFModule } from './xsrf/module';
 
 export interface IElixirHttpClientModule {
     baseURL?: string;
@@ -26,10 +27,17 @@ export let elixirConfig: IElixirHttpClientModule = {
 export class ElixirHttpClientModule {
 
     public initialize = (initial: IElixirHttpClientModule) => {
-        elixirConfig.baseURL = initial.baseURL;
-        elixirConfig.XSRFCookieName = initial.XSRFCookieName;
-        elixirConfig.XSRFHeaderName = initial.XSRFHeaderName;
-        elixirConfig.interceptors.push(...initial.interceptors);
+        if (initial.baseURL !== null) { elixirConfig.baseURL = initial.baseURL; }
+        if (initial.XSRFCookieName !== null) { elixirConfig.XSRFCookieName = initial.XSRFCookieName; }
+        if (initial.XSRFCookieName !== null) { elixirConfig.XSRFHeaderName = initial.XSRFHeaderName; }
+        if (initial.interceptors.length > 0) { elixirConfig.interceptors.push(...initial.interceptors); }
+
+        const xsrf = {
+            XSRFCookieName: elixirConfig.XSRFCookieName,
+            XSRFHeaderName: elixirConfig.XSRFHeaderName,
+        };
+
+        new XSRFModule().initialize(xsrf);
     }
 }
 

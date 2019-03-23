@@ -1,10 +1,9 @@
 import { Observable } from 'rxjs';
 import { HttpHandler } from '../core/backend';
-import { HttpInterceptor } from '../core/interceptor';
 import { HttpRequest } from '../core/request';
 import { HttpEvent } from '../core/response';
 import { parseCookieValue } from './utils';
-import { elixirConfig } from '..';
+import { xsrfConfig } from './module';
 
 /**
  * `HttpInterceptor` which adds an XSRF token to eligible outgoing requests.
@@ -21,8 +20,8 @@ export const HttpXsrfInterceptor = (req: HttpRequest<any>, next: HttpHandler): O
     }
     const token = new HttpXsrfTokenExtractor().getToken();
     // Be careful not to overwrite an existing header of the same name.
-    if (token !== null && !req.headers.has(elixirConfig.XSRFHeaderName)) {
-        req = req.clone({ headers: req.headers.set(elixirConfig.XSRFHeaderName, token) });
+    if (token !== null && !req.headers.has(xsrfConfig.XSRFHeaderName)) {
+        req = req.clone({ headers: req.headers.set(xsrfConfig.XSRFHeaderName, token) });
     }
     return next.handle(req);
 };
@@ -41,7 +40,7 @@ export class HttpXsrfTokenExtractor {
         const cookieString = document.cookie || '';
         if (cookieString !== this.lastCookieString) {
             this.parseCount++;
-            this.lastToken = parseCookieValue(cookieString, elixirConfig.XSRFCookieName);
+            this.lastToken = parseCookieValue(cookieString, xsrfConfig.XSRFCookieName);
             this.lastCookieString = cookieString;
         }
         return this.lastToken;

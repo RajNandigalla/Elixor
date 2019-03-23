@@ -42,11 +42,11 @@ const makeConfig = ({
         } : [
                 {
                     format: 'es',
-                    file: `dist/index.es.js`
+                    file: `dist/elixor.es.js`
                 },
                 {
                     format: 'cjs',
-                    file: `dist/index.js`
+                    file: `dist/elixor.cjs.js`
                 }
             ],
         plugins
