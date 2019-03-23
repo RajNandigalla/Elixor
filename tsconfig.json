@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "rootDir": "src",
+        "removeComments": true,
+        "noImplicitAny": true,
+        "outDir": "./dist",
+        "module": "es6",
+        "target": "es6",
+        "moduleResolution": "node",
+        "declaration": true,
+        "declarationDir": "./dist",
+    },
+    "include": [
+        "src/**/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
