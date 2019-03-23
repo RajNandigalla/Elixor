@@ -1,8 +1,8 @@
 {
     "files.exclude": {
         "**/node_modules": true,
-        "**/test": true,
-        "**/testing": true,
-        "**/examples": true,
+        "**/test": false,
+        "**/testing": false,
+        "**/examples": false,
     }
 }
