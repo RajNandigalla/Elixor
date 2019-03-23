@@ -1,12 +1,13 @@
 {
     "name": "elixor",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Observable ( Reactive / Rxjs ) based HTTP client for the browser , reactJs , react native and node.js",
-    "main": "dist/index.js",
-    "module": "dist/index.es.js",
+    "main": "dist/elixor.min.js",
+    "module": "dist/elixor.es.js",
     "files": [
         "dist"
     ],
+    "types": "dist/packages/index.d.ts",
     "scripts": {
         "test": "",
         "build": "rollup -c"

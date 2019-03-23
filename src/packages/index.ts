@@ -7,14 +7,14 @@ import { JsonpInterceptor } from './jsonp/JsonpInterceptor';
 import { XSRF_COOKIE_NAME, XSRF_HEADER_NAME } from './xsrf/utils';
 import { XSRFModule } from './xsrf/module';
 
-export interface IElixirHttpClientModule {
+export interface IelixorHttpClientModule {
     baseURL?: string;
     interceptors?: HttpInterceptor[];
     XSRFCookieName?: string;
     XSRFHeaderName?: string;
 }
 
-export let elixirConfig: IElixirHttpClientModule = {
+export let elixorConfig: IelixorHttpClientModule = {
     baseURL: '',
     interceptors: [
         HttpXsrfInterceptor,
@@ -24,17 +24,17 @@ export let elixirConfig: IElixirHttpClientModule = {
     XSRFHeaderName: XSRF_HEADER_NAME,
 };
 
-export class ElixirHttpClientModule {
+export class ElixorHttpClientModule {
 
-    public initialize = (initial: IElixirHttpClientModule) => {
-        if (initial.baseURL !== null) { elixirConfig.baseURL = initial.baseURL; }
-        if (initial.XSRFCookieName !== null) { elixirConfig.XSRFCookieName = initial.XSRFCookieName; }
-        if (initial.XSRFCookieName !== null) { elixirConfig.XSRFHeaderName = initial.XSRFHeaderName; }
-        if (initial.interceptors.length > 0) { elixirConfig.interceptors.push(...initial.interceptors); }
+    public initialize = (initial: IelixorHttpClientModule) => {
+        if (initial.baseURL !== null) { elixorConfig.baseURL = initial.baseURL; }
+        if (initial.XSRFCookieName !== null) { elixorConfig.XSRFCookieName = initial.XSRFCookieName; }
+        if (initial.XSRFCookieName !== null) { elixorConfig.XSRFHeaderName = initial.XSRFHeaderName; }
+        if (initial.interceptors.length > 0) { elixorConfig.interceptors.push(...initial.interceptors); }
 
         const xsrf = {
-            XSRFCookieName: elixirConfig.XSRFCookieName,
-            XSRFHeaderName: elixirConfig.XSRFHeaderName,
+            XSRFCookieName: elixorConfig.XSRFCookieName,
+            XSRFHeaderName: elixorConfig.XSRFHeaderName,
         };
 
         XSRFModule.initialize(xsrf);
@@ -42,6 +42,6 @@ export class ElixirHttpClientModule {
 }
 
 const httpXhrBackend = new HttpXhrBackend();
-const httpInterceptingHandler = new HttpInterceptingHandler(httpXhrBackend, elixirConfig.interceptors);
-export const Elixir = new HttpClient(httpInterceptingHandler);
+const httpInterceptingHandler = new HttpInterceptingHandler(httpXhrBackend, elixorConfig.interceptors);
+export const elixor = new HttpClient(httpInterceptingHandler);
 export * from './public_api';
