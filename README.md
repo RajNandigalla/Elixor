@@ -20,6 +20,7 @@ Using bower:
 ```bash
 $ bower install elixor
 ```
+### Documentation can be found at https://elixor.gitbook.io/elixor/
 ## Example
 
 Performing a GET Request

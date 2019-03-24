@@ -1,6 +1,6 @@
 {
     "name": "elixor",
-    "version": "1.0.3",
+    "version": "1.0.5",
     "description": "Observable ( Reactive / Rxjs ) based HTTP client for the browser , reactJs , react native and node.js",
     "main": "dist/elixor.min.js",
     "module": "dist/elixor.es.js",
