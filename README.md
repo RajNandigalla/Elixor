@@ -1,5 +1,7 @@
 # Elixor
 
+### Documentation can be found at https://elixor.js.org/
+
 Observable based HTTP client for the React,Browser and Node.JS
 
 -  Make [XMLHttpRequests](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) from the browser
@@ -20,7 +22,7 @@ Using bower:
 ```bash
 $ bower install elixor
 ```
-### Documentation can be found at https://elixor.gitbook.io/elixor/
+
 ## Example
 
 Performing a GET Request
