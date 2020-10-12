@@ -3,7 +3,7 @@ export { HttpClient } from './core/client';
 export { HttpHeaders } from './core/headers';
 export { HttpInterceptor } from './core/interceptor';
 export { JsonpClientBackend } from './jsonp/jsonp';
-export { JsonpInterceptor } from './jsonp/JsonpInterceptor';
+export { JsonpInterceptor } from './interceptors/jsonp/JsonpInterceptor';
 export { HttpRequest } from './core/request';
 export { HttpParameterCodec, HttpParams, HttpUrlEncodingCodec } from './core/params';
 export {

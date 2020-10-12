@@ -1,9 +1,8 @@
 import { Observable } from 'rxjs';
-import { HttpHandler } from '../core/backend';
-import { HttpRequest } from '../core/request';
-import { HttpEvent } from '../core/response';
-import { JsonpClientBackend } from './jsonp';
-import { jsonpCallbackContext, JsonpCallbackContext } from './JsonpCallbackContext';
+import { HttpHandler } from '../../core/backend';
+import { HttpRequest } from '../../core/request';
+import { HttpEvent } from '../../core/response';
+import { JsonpClientBackend } from '../../jsonp/jsonp';
 
 /**
  * An `HttpInterceptor` which identifies requests with the method JSONP and

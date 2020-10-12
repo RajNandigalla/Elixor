@@ -9,7 +9,7 @@ import { HttpXsrfTokenExtractor } from '../../xsrf/HttpXsrfTokenExtractor';
  * `HttpInterceptor` which adds an XSRF token to eligible outgoing requests.
  */
 export const HttpXsrfInterceptor = (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> => {
-    const lcUrl: string = req.url.toLowerCase();
+    const lcUrl = req.url.toLowerCase();
     // Skip both non-mutating requests and absolute URLs.
     // Non-mutating requests don't require a token, and absolute URLs require special handling
     // anyway as the cookie set
@@ -25,5 +25,3 @@ export const HttpXsrfInterceptor = (req: HttpRequest<any>, next: HttpHandler): O
     }
     return next.handle(req);
 };
-
-
