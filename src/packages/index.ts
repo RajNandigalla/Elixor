@@ -30,7 +30,7 @@ export class ElixorModule {
         if (initial.baseURL !== null) { elixorConfig.baseURL = initial.baseURL; }
         if (initial.XSRFCookieName !== null) { elixorConfig.XSRFCookieName = initial.XSRFCookieName; }
         if (initial.XSRFCookieName !== null) { elixorConfig.XSRFHeaderName = initial.XSRFHeaderName; }
-        if (initial.interceptors.length > 0) { elixorConfig.interceptors.push(...initial.interceptors); }
+        if (initial.interceptors && initial.interceptors.length > 0) { elixorConfig.interceptors.push(...initial.interceptors); }
 
         const xsrf = {
             XSRFCookieName: elixorConfig.XSRFCookieName,

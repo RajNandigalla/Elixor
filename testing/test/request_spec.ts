@@ -9,7 +9,7 @@
 import {HttpHeaders} from '@angular/common/http/src/headers';
 import {HttpParams} from '@angular/common/http/src/params';
 import {HttpRequest} from '@angular/common/http/src/request';
-import {ddescribe, describe, it} from '@angular/core/testing/src/testing_internal';
+import {ddescribe, describe, it} from '../../../../testing/testing/test/node_modules/@angular/core/testing/src/testing_internal';
 
 const TEST_URL = 'http://angular.io';
 const TEST_STRING = `I'm a body!`;

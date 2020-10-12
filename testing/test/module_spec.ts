@@ -14,7 +14,7 @@ import {HttpEvent, HttpResponse} from '@angular/common/http/src/response';
 import {HttpTestingController} from '@angular/common/http/testing/src/api';
 import {HttpClientTestingModule} from '@angular/common/http/testing/src/module';
 import {TestRequest} from '@angular/common/http/testing/src/request';
-import {Injectable, Injector} from '@angular/core';
+import {Injectable, Injector} from '../../../../testing/testing/src/node_modules/@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';

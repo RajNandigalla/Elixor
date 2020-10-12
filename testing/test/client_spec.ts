@@ -9,7 +9,7 @@
 import {HttpClient} from '@angular/common/http/src/client';
 import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http/src/response';
 import {HttpClientTestingBackend} from '@angular/common/http/testing/src/backend';
-import {ddescribe, describe, fit, it} from '@angular/core/testing/src/testing_internal';
+import {ddescribe, describe, fit, it} from '../../../../testing/testing/test/node_modules/@angular/core/testing/src/testing_internal';
 import {toArray} from 'rxjs/operators';
 
 {
