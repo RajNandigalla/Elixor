@@ -1,11 +1,12 @@
-import { HttpInterceptingHandler } from './interceptors';
-import { HttpInterceptor } from './interceptors/interceptor';
-import { HttpXhrBackend } from './http/xhr';
 import { HttpClient } from './core/client';
-import { HttpXsrfInterceptor } from './interceptors/xsrf/HttpXsrfInterceptor';
+import { HttpXhrBackend } from './http/xhr';
+import { HttpInterceptingHandler } from './interceptors';
+import { BaseURLInterceptor } from './interceptors/BaseURLInterceptor';
+import { HttpInterceptor } from './interceptors/interceptor';
 import { JsonpInterceptor } from './interceptors/jsonp/JsonpInterceptor';
-import { XSRF_COOKIE_NAME, XSRF_HEADER_NAME } from './xsrf/utils';
+import { HttpXsrfInterceptor } from './interceptors/xsrf/HttpXsrfInterceptor';
 import { XSRFModule } from './xsrf/module';
+import { XSRF_COOKIE_NAME, XSRF_HEADER_NAME } from './xsrf/utils';
 
 export interface IelixorHttpClientModule {
     baseURL?: string;
@@ -27,10 +28,15 @@ export let elixorConfig: IelixorHttpClientModule = {
 export class ElixorModule {
 
     public static initialize = (initial: IelixorHttpClientModule) => {
-        if (initial.baseURL !== null) { elixorConfig.baseURL = initial.baseURL; }
-        if (initial.XSRFCookieName !== null) { elixorConfig.XSRFCookieName = initial.XSRFCookieName; }
-        if (initial.XSRFCookieName !== null) { elixorConfig.XSRFHeaderName = initial.XSRFHeaderName; }
-        if (initial.interceptors && initial.interceptors.length > 0) { elixorConfig.interceptors.push(...initial.interceptors); }
+        if (initial.XSRFCookieName) { elixorConfig.XSRFCookieName = initial.XSRFCookieName; }
+        if (initial.XSRFCookieName) { elixorConfig.XSRFHeaderName = initial.XSRFHeaderName; }
+        if (initial.baseURL) {
+            elixorConfig.baseURL = initial.baseURL;
+            elixorConfig.interceptors.push(BaseURLInterceptor);
+        }
+        if (initial.interceptors && initial.interceptors.length > 0) {
+            elixorConfig.interceptors.push(...initial.interceptors);
+        }
 
         const xsrf = {
             XSRFCookieName: elixorConfig.XSRFCookieName,
