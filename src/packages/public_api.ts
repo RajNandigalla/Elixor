@@ -22,5 +22,5 @@ export {
     HttpUserEvent,
 } from './core/response';
 export { HttpXhrBackend, XhrFactory } from './http/xhr';
-export { HttpXsrfTokenExtractor } from './xsrf/HttpXsrfInterceptor';
+export { HttpXsrfTokenExtractor } from './interceptors/xsrf/HttpXsrfInterceptor';
 export { LoggingInterceptor } from './interceptors/LoggingInterceptor';

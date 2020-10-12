@@ -11,8 +11,8 @@ export let xsrfConfig: IXSRFConfig = {
 };
 
 export class XSRFModule {
-    public static initialize = (initial: IXSRFConfig) => {
-        xsrfConfig.XSRFCookieName = initial.XSRFCookieName;
-        xsrfConfig.XSRFHeaderName = initial.XSRFHeaderName;
+    public static initialize = ({ XSRFCookieName, XSRFHeaderName }: IXSRFConfig) => {
+        xsrfConfig.XSRFCookieName = XSRFCookieName;
+        xsrfConfig.XSRFHeaderName = XSRFHeaderName;
     }
 }

@@ -1,15 +1,15 @@
 import { Observable } from 'rxjs';
-import { HttpHandler } from '../core/backend';
-import { HttpRequest } from '../core/request';
-import { HttpEvent } from '../core/response';
-import { parseCookieValue } from './utils';
-import { xsrfConfig } from './module';
+import { HttpHandler } from '../../core/backend';
+import { HttpRequest } from '../../core/request';
+import { HttpEvent } from '../../core/response';
+import { xsrfConfig } from '../../xsrf/module';
+import { HttpXsrfTokenExtractor } from '../../xsrf/HttpXsrfTokenExtractor';
 
 /**
  * `HttpInterceptor` which adds an XSRF token to eligible outgoing requests.
  */
 export const HttpXsrfInterceptor = (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> => {
-    const lcUrl = req.url.toLowerCase();
+    const lcUrl: string = req.url.toLowerCase();
     // Skip both non-mutating requests and absolute URLs.
     // Non-mutating requests don't require a token, and absolute URLs require special handling
     // anyway as the cookie set
@@ -26,23 +26,4 @@ export const HttpXsrfInterceptor = (req: HttpRequest<any>, next: HttpHandler): O
     return next.handle(req);
 };
 
-export class HttpXsrfTokenExtractor {
 
-    /**
-     * @internal for testing
-     */
-    public parseCount: number = 0;
-    private lastCookieString: string = '';
-    private lastToken: string | null = null;
-
-    public getToken(): string | null {
-
-        const cookieString = document.cookie || '';
-        if (cookieString !== this.lastCookieString) {
-            this.parseCount++;
-            this.lastToken = parseCookieValue(cookieString, xsrfConfig.XSRFCookieName);
-            this.lastCookieString = cookieString;
-        }
-        return this.lastToken;
-    }
-}

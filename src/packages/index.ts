@@ -2,7 +2,7 @@ import { HttpInterceptingHandler } from './core/module';
 import { HttpInterceptor } from './core/interceptor';
 import { HttpXhrBackend } from './http/xhr';
 import { HttpClient } from './core/client';
-import { HttpXsrfInterceptor } from './xsrf/HttpXsrfInterceptor';
+import { HttpXsrfInterceptor } from './interceptors/xsrf/HttpXsrfInterceptor';
 import { JsonpInterceptor } from './jsonp/JsonpInterceptor';
 import { XSRF_COOKIE_NAME, XSRF_HEADER_NAME } from './xsrf/utils';
 import { XSRFModule } from './xsrf/module';
