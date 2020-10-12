@@ -2,7 +2,7 @@
     "files.exclude": {
         "**/node_modules": true,
         "**/test": false,
-        "**/testing": false,
+        "**/testing": true,
         "**/examples": false,
     }
 }
