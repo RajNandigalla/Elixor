@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs';
 
-import { HttpHandler, HttpBackend } from './backend';
+import { HttpHandler, HttpBackend } from '../core/backend';
 import { HttpInterceptor, HttpInterceptorHandler } from './interceptor';
-import { HttpRequest } from './request';
-import { HttpEvent } from './response';
+import { HttpRequest } from '../core/request';
+import { HttpEvent } from '../core/response';
 
 /**
  * An injectable `HttpHandler` that applies multiple interceptors

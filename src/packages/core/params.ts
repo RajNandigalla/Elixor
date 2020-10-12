@@ -43,6 +43,7 @@ function paramParser(rawParams: string, codec: HttpParameterCodec): Map<string, 
   }
   return map;
 }
+
 function standardEncoding(v: string): string {
   return encodeURIComponent(v)
       .replace(/%40/gi, '@')

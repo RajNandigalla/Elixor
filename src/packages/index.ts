@@ -1,5 +1,5 @@
-import { HttpInterceptingHandler } from './core/module';
-import { HttpInterceptor } from './core/interceptor';
+import { HttpInterceptingHandler } from './interceptors';
+import { HttpInterceptor } from './interceptors/interceptor';
 import { HttpXhrBackend } from './http/xhr';
 import { HttpClient } from './core/client';
 import { HttpXsrfInterceptor } from './interceptors/xsrf/HttpXsrfInterceptor';
