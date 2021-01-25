@@ -7,19 +7,19 @@ export { JsonpInterceptor } from './interceptors/jsonp/JsonpInterceptor';
 export { HttpRequest } from './core/request';
 export { HttpParameterCodec, HttpParams, HttpUrlEncodingCodec } from './core/params';
 export {
-    HttpInterceptingHandler as ɵHttpInterceptingHandler,
+  HttpInterceptingHandler as ɵHttpInterceptingHandler,
 } from './interceptors';
 export {
-    HttpDownloadProgressEvent,
-    HttpErrorResponse,
-    HttpEvent,
-    HttpEventType,
-    HttpHeaderResponse,
-    HttpProgressEvent,
-    HttpResponse,
-    HttpResponseBase,
-    HttpSentEvent,
-    HttpUserEvent,
+  HttpDownloadProgressEvent,
+  HttpErrorResponse,
+  HttpEvent,
+  HttpEventType,
+  HttpHeaderResponse,
+  HttpProgressEvent,
+  HttpResponse,
+  HttpResponseBase,
+  HttpSentEvent,
+  HttpUserEvent,
 } from './core/response';
 export { HttpXhrBackend, XhrFactory } from './http/xhr';
 export { HttpXsrfTokenExtractor } from './xsrf/HttpXsrfTokenExtractor';

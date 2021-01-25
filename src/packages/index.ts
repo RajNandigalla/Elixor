@@ -15,35 +15,34 @@ export interface IelixorHttpClientModule {
     XSRFHeaderName?: string;
 }
 
-export let elixorConfig: IelixorHttpClientModule = {
-    baseURL: '',
-    interceptors: [
-        HttpXsrfInterceptor,
-        JsonpInterceptor,
-    ],
-    XSRFCookieName: XSRF_COOKIE_NAME,
-    XSRFHeaderName: XSRF_HEADER_NAME,
+export const elixorConfig: IelixorHttpClientModule = {
+  baseURL: '',
+  interceptors: [
+    HttpXsrfInterceptor,
+    JsonpInterceptor,
+  ],
+  XSRFCookieName: XSRF_COOKIE_NAME,
+  XSRFHeaderName: XSRF_HEADER_NAME,
 };
 
 export class ElixorModule {
-
     public static initialize = (initial: IelixorHttpClientModule) => {
-        if (initial.XSRFCookieName) { elixorConfig.XSRFCookieName = initial.XSRFCookieName; }
-        if (initial.XSRFCookieName) { elixorConfig.XSRFHeaderName = initial.XSRFHeaderName; }
-        if (initial.baseURL) {
-            elixorConfig.baseURL = initial.baseURL;
-            elixorConfig.interceptors.push(BaseURLInterceptor);
-        }
-        if (initial.interceptors && initial.interceptors.length > 0) {
-            elixorConfig.interceptors.push(...initial.interceptors);
-        }
+      if (initial.XSRFCookieName) { elixorConfig.XSRFCookieName = initial.XSRFCookieName; }
+      if (initial.XSRFCookieName) { elixorConfig.XSRFHeaderName = initial.XSRFHeaderName; }
+      if (initial.baseURL) {
+        elixorConfig.baseURL = initial.baseURL;
+        elixorConfig.interceptors.push(BaseURLInterceptor);
+      }
+      if (initial.interceptors && initial.interceptors.length > 0) {
+        elixorConfig.interceptors.push(...initial.interceptors);
+      }
 
-        const xsrf = {
-            XSRFCookieName: elixorConfig.XSRFCookieName,
-            XSRFHeaderName: elixorConfig.XSRFHeaderName,
-        };
+      const xsrf = {
+        XSRFCookieName: elixorConfig.XSRFCookieName,
+        XSRFHeaderName: elixorConfig.XSRFHeaderName,
+      };
 
-        XSRFModule.initialize(xsrf);
+      XSRFModule.initialize(xsrf);
     }
 }
 
